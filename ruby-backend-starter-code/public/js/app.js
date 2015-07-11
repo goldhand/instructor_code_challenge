@@ -7,10 +7,12 @@
     xhr.open('get', 'http://omdbapi.com/?s=' + encodeURIComponent(input), true);
     xhr.addEventListener('load', function(response){
       var res =  JSON.parse(this.response).Search;
+      var nodeParent = document.querySelector('ul'); // save the li parent so we don't query dom twice
+      nodeParent.innerHTML = '';  // remove exisiting search results from the DOM
       for(var i = 0; i < res.length; i++){
         var node = document.createElement('li');
         node.innerText = res[i].Title;
-        document.querySelector('ul').appendChild(node);
+        nodeParent.appendChild(node);  // append search result to nodeParent '<ul>'
       }
   });
     xhr.send();
