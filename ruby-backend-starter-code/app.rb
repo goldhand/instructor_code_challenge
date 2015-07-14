@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json'  # for JSON
 
 get '/' do  # indicate start of block
   File.read('views/index.html')  # points to template relative to current directory
@@ -10,7 +11,7 @@ get '/favorites' do
 end
 
 post '/favorites' do  # POST new data to json
-  file = JSON.parse(File.read('data.json'))
+  file = JSON.parse(File.read('data.json'))  # needs to return an array
   unless params[:name] && params[:oid]  # need to submit name and oid from form
     return 'Invalid Request'
   end  # ends unless statement
